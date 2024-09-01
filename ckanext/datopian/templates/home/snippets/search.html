@@ -1,9 +1,9 @@
 {% set tags = h.get_facet_items_dict('tags', c.search_facets, limit=3) %}
-{% set placeholder = _('E.g. environment') %}
+{% set placeholder = _('Masukkan kata kunci pencarian, contoh: transmigrasi') %}
 
 <div class="module module-search module-narrow module-shallow box">
   <form class="module-content search-form" method="get" action="{% url_for 'dataset.search' %}">
-    <h3 class="heading">{{ _("Welcome to CKAN Data Catalog") }}</h3>
+    <h3 class="heading">{{ _("Portal Satu Data Kementerian/Lembaga") }}</h3>
     <div class="search-input form-group search-giant">
       <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
       <button type="submit" aria-labelledby="search-label">
@@ -13,7 +13,7 @@
     </div>
   </form>
   <div class="tags">
-    <h3>{{ _('Popular tags') }}</h3>
+    <h3>{{ _('Tags terpopuler') }}</h3>
     {% for tag in tags %}
       <a class="tag" href="{% url_for 'dataset.search', tags=tag.name %}">{{ h.truncate(tag.display_name, 22) }}</a>
     {% endfor %}

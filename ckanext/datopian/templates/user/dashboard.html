@@ -3,7 +3,7 @@
 {% set user = g.userobj %}
 
 {% block breadcrumb_content %}
-  <li class="active"><a href="{{ h.url_for('dashboard.index') }}">{{ _('Dashboard') }}</a></li>
+  <li class="active"><a href="{{ h.url_for('dashboard.index') }}">{{ _('Dasbor') }}</a></li>
 {% endblock %}
 
 {% block secondary %}{% endblock %}
@@ -13,14 +13,14 @@
     {% block page_header %}
       <header class="module-content page-header hug">
         <div class="content_action">
-          {% link_for _('Profile settings'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
+          {% link_for _('Pengaturan Profil'), named_route='user.edit', id=user.name, class_='btn btn-default', icon='cog' %}
         </div>
     {% block content_primary_nav %}    
         <ul class="nav nav-tabs">
-          {{ h.build_nav_icon('dashboard.index', _('News feed'), icon='list') }}
-          {{ h.build_nav_icon('dashboard.datasets', _('My Datasets'), icon='sitemap') }}
-          {{ h.build_nav_icon('dashboard.organizations', _('My Organizations'), icon='building-o') }}
-          {{ h.build_nav_icon('dashboard.groups', _('My Groups'), icon='users') }}
+          {{ h.build_nav_icon('dashboard.index', _('Umpan Berita'), icon='list') }}
+          {{ h.build_nav_icon('dashboard.datasets', _('Daftar Data'), icon='sitemap') }}
+          {{ h.build_nav_icon('dashboard.organizations', _('Instansi'), icon='building-o') }}
+          {{ h.build_nav_icon('dashboard.groups', _('Kelompok'), icon='users') }}
         </ul>
      {% endblock %}   
       </header>
@@ -36,9 +36,9 @@
           {% snippet 'user/snippets/followee_dropdown.html', context=dashboard_activity_stream_context, followees=followee_list %}
           <h2 class="page-heading">
             {% block page_heading %}
-              {{ _('News feed') }}
+              {{ _('Umpan Berita') }}
             {% endblock %}
-            <small>{{ _("Activity from items that I'm following") }}</small>
+            <small class="text-muted">{{ _("Aktivitas dari item yang saya ikuti") }}</small>
           </h2>
           {% snippet 'snippets/activity_stream.html', activity_stream=dashboard_activity_stream %}
         </div>

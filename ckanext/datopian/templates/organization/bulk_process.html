@@ -1,6 +1,6 @@
 {% extends "organization/edit_base.html" %}
 
-{% block subtitle %}{{ _('Edit datasets') }} {{ g.template_title_delimiter }} {{ super() }}{% endblock %}
+{% block subtitle %}{{ _('Edit daftar data') }} {{ g.template_title_delimiter }} {{ super() }}{% endblock %}
 
 {% block page_primary_action %}
   {% snippet 'snippets/add_dataset.html', group=group_dict.id %}
@@ -15,7 +15,7 @@
           {%- if page.item_count -%}
             {{ page.item_count }} datasets{{ _(" found for \"{query}\"").format(query=q) if q }}
           {%- elif request.params -%}
-            {{ _('Sorry no datasets found for "{query}"').format(query=q) }}
+            {{ _('Sorry no daftar data found for "{query}"').format(query=q) }}
           {%- else -%}
             {{ _('Datasets') }}
           {%- endif -%}

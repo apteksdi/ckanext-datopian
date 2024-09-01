@@ -4,14 +4,14 @@
   {{ form.errors(error_summary) }}
 
   <fieldset>
-    <legend>{{ _('Change details') }}</legend>
-    {{ form.input('name', label=_('Username'), id='field-username', value=data.name, error=errors.name, classes=['control-medium'], attrs={'readonly': '', 'class': 'form-control'}) }}
+    <legend>{{ _('Detil Perubahan') }}</legend>
+    {{ form.input('name', label=_('Nama Pengguna'), id='field-username', value=data.name, error=errors.name, classes=['control-medium'], attrs={'readonly': '', 'class': 'form-control'}) }}
 
-    {{ form.input('fullname', label=_('Full name'), id='field-fullname', value=data.fullname, error=errors.fullname, placeholder=_('eg. Joe Bloggs'), classes=['control-medium']) }}
+    {{ form.input('fullname', label=_('Nama Lengkap'), id='field-fullname', value=data.fullname, error=errors.fullname, placeholder=_('eg. Joe Bloggs'), classes=['control-medium']) }}
 
-    {{ form.input('email', label=_('Email'), id='field-email', type='email', value=data.email, error=errors.email, placeholder=_('eg. joe@example.com'), classes=['control-medium'], is_required=true) }}
+    {{ form.input('email', label=_('Surel'), id='field-email', type='email', value=data.email, error=errors.email, placeholder=_('eg. joe@example.com'), classes=['control-medium'], is_required=true) }}
 
-    {{ form.markdown('about', label=_('About'), id='field-about', value=data.about, error=errors.about, placeholder=_('A little information about yourself')) }}
+    {{ form.markdown('about', label=_('Tentang'), id='field-about', value=data.about, error=errors.about, placeholder=_('Jelaskan informasi tentang Anda')) }}
 
     {% if show_email_notifications %}
       {% call form.checkbox('activity_streams_email_notifications', label=_('Subscribe to notification emails'), id='field-activity-streams-email-notifications', value=True, checked=g.userobj.activity_streams_email_notifications) %}
@@ -23,15 +23,15 @@
     {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
     {% set is_url = data.image_url and data.image_url.startswith('http') %}
 
-    {{ form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload, upload_label=_('Profile picture'), url_label=_('Profile picture URL') ) }}
+    {{ form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload, upload_label=_('Gambar Profile'), url_label=_('Profile picture URL') ) }}
 
   </fieldset>
 
   <fieldset>
-    <legend>{{ _('Change password') }}</legend>
+    <legend>{{ _('Ganti kata sandi') }}</legend>
     {{ form.input('old_password',
                   type='password',
-                  label=_('Sysadmin Password') if is_sysadmin else _('Old Password'),
+                  label=_('Sysadmin Password') if is_sysadmin else _('Kata sandi lama'),
                   id='field-password-old',
                   value=data.oldpassword,
                   error=errors.oldpassword,
@@ -39,9 +39,9 @@
                   attrs={'autocomplete': 'off', 'class': 'form-control'}
                   ) }}
 
-    {{ form.input('password1', type='password', label=_('Password'), id='field-password', value=data.password1, error=errors.password1, classes=['control-medium'], attrs={'autocomplete': 'off', 'class': 'form-control'} ) }}
+    {{ form.input('password1', type='password', label=_('Kata sandi'), id='field-password', value=data.password1, error=errors.password1, classes=['control-medium'], attrs={'autocomplete': 'off', 'class': 'form-control'} ) }}
 
-    {{ form.input('password2', type='password', label=_('Confirm Password'), id='field-password-confirm', value=data.password2, error=errors.password2, classes=['control-medium'], attrs={'autocomplete': 'off', 'class': 'form-control'}) }}
+    {{ form.input('password2', type='password', label=_('Konfirmasi kata sandi'), id='field-password-confirm', value=data.password2, error=errors.password2, classes=['control-medium'], attrs={'autocomplete': 'off', 'class': 'form-control'}) }}
   </fieldset>
 
   <div class="form-actions">
@@ -52,10 +52,10 @@
     {% endblock %}
     {% block generate_button %}
       {% if h.check_access('user_generate_apikey', {'id': data.id})  %}
-        <a class="btn btn-warning" href="{% url_for 'user.generate_apikey', id=data.id %}" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to regenerate the API key?') }}">{% block generate_button_text %}{{ _('Regenerate API Key') }}{% endblock %}</a>
+        <a class="btn btn-warning" href="{% url_for 'user.generate_apikey', id=data.id %}" data-module="confirm-action" data-module-content="{{ _('Apakah Anda yakin ingin membuat ulang kunci API?') }}">{% block generate_button_text %}{{ _('Regenerasi API Key') }}{% endblock %}</a>
       {% endif %}
     {% endblock %}
     {{ form.required_message() }}
-    <button class="btn btn-primary" type="submit" name="save">{{ _('Update Profile') }}</button>
+    <button class="btn btn-primary" type="submit" name="save">{{ _('Perbarui Profil') }}</button>
   </div>
 </form>

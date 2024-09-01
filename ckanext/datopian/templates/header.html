@@ -87,18 +87,18 @@
         <ul class="nav nav-pills">
             {% block header_site_navigation_tabs %}
 		{{ h.build_nav_main(
-		    ('dataset.search', _('Datasets')),
-		    ('organization.index', _('Organizations')),
-		    ('group.index', _('Groups')),
-		    ('home.about', _('About')) ) }}
+		    ('dataset.search', _('Kumpulan Data')),
+		    ('organization.index', _('Instansi')),
+		    ('group.index', _('Kelompok')),
+		    ('home.about', _('Tentang')) ) }}
 	    {% endblock %}
         </ul>
       </nav>
       {% endblock %} {% block header_site_search %}
       <form class="section site-search simple-input" action="{% url_for 'dataset.search' %}" method="get">
         <div class="field">
-          <label for="field-sitewide-search">{% block header_site_search_label %}{{ _('Search Datasets') }}{% endblock %}</label>
-          <input id="field-sitewide-search" type="text" class="form-control" name="q" placeholder="{{ _('Search') }}" aria-label="{{ _('Search datasets') }}"/>
+          <label for="field-sitewide-search">{% block header_site_search_label %}{{ _('Cari Daftar Data') }}{% endblock %}</label>
+          <input id="field-sitewide-search" type="text" class="form-control" name="q" placeholder="{{ _('Cari Daftar Data') }}" aria-label="{{ _('Cari Daftar Data') }}"/>
           <button class="btn-search" type="submit" aria-label="{{ _('Submit') }}"><i class="fa fa-search"></i></button>
         </div>
       </form>
