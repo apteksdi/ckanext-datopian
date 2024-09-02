@@ -24,10 +24,10 @@
     {% set text_no_query_none = _('No groups found') %}
   
   {% elif type == 'organization' %}
-    {% set text_query = ungettext('{number} instansi found for "{query}"', '{number} instansi found for "{query}"', count) %}
-    {% set text_query_none = _('No instansi found for "{query}"') %}
-    {% set text_no_query = ungettext('{number} instansi found', '{number} instansi found', count) %}
-    {% set text_no_query_none = _('No instansi found') %}
+    {% set text_query = ungettext('{number} unit kerja found for "{query}"', '{number} unit kerja found for "{query}"', count) %}
+    {% set text_query_none = _('No unit kerja found for "{query}"') %}
+    {% set text_no_query = ungettext('{number} unit kerja found', '{number} unit kerja found', count) %}
+    {% set text_no_query_none = _('No unit kerja found') %}
   
   {% else %}
     {% set text_query_singular = '{number} ' + type + ' found for "{query}"' %}
