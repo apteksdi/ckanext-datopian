@@ -15,6 +15,13 @@ then itself be extended to add/remove blocks of functionality. #}
 
   {% block basic_fields %}
     {% snippet 'package/snippets/package_basic_fields.html', data=data, errors=errors %}
+
+    {% set publishing_status = data.get('publishing_status', 'in_review')  %}
+    <input id="field-publishing_status" type="hidden" name="publishing_status" value="{{ publishing_status }}" />
+    {%- if 'resource_fields' not in schema -%}
+    <!-- force controller to skip resource-editing step for this type -->
+    <input type="hidden" name="_ckan_phase" value="" />
+    {%- endif -%}
   {% endblock %}
 
   {% block metadata_fields %}
