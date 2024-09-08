@@ -76,7 +76,7 @@
     {% if show_organizations_selector %}
     {% set existing_org = data.owner_org or data.group_id %}
     <div class="form-group control-medium">
-      <label for="field-organizations" class="control-label">{{ _('Organization') }}</label>
+      <label for="field-organizations" class="control-label" disabled="True">{{ _('Unit Kerja') }}</label>
       <div class="controls">
         <select id="field-organizations" name="owner_org" data-module="autocomplete">
           {% if h.check_config_permission('create_unowned_dataset') %}
@@ -95,10 +95,10 @@
     {% if show_visibility_selector %}
     {% block package_metadata_fields_visibility %}
     <div class="form-group control-medium">
-      <label for="field-private" class="control-label">{{ _('Visibility') }}</label>
+      <label for="field-private" class="control-label">{{ _('Status Visibilitas Data') }}</label>
       <div class="controls">
         <select id="field-private" name="private" class="form-control">
-          {% for option in [('True', _('Private')), ('False', _('Public'))] %}
+          {% for option in [('True', _('Sembunyikan'))] %}
           <option value="{{ option[0] }}" {% if option[0] == data.private|trim %}selected="selected"{% endif %}>{{ option[1] }}</option>
           {% endfor %}
         </select>
