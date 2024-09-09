@@ -1,0 +1,391 @@
+{% set exclude_fields = [ 'id', 'title', 'title_translated', 'name', 'notes',
+'notes_translated', 'tag_string', 'license_id', 'owner_org', 'graphic_overview',
+'access_rights', 'publisher_uri', 'publisher_name', 'publisher_identifier',
+'publisher_url', 'publisher_email', 'publisher_type', 'contact_uri',
+'contact_name', 'contact_email', 'contact_url', 'reference' ] %} {# MD Fields #}
+{# DAFTAR DATA: Sublist #} {% set daftardata = [ 'created', 'issued',
+'modified', 'accrualPeriodicity', 'accessRights', 'id_dds', 'id_indikator_mms', 'id_sds', 'satuan', 'ukuran', 'jenis', 'theme', 'prioritas_tahun', 'kriteria_prioritas', 'indikator_prioritas', 'publisher_type' ] %} 
+{# MS-IND info: Sublist #} {% set msind = [ 'id_msind', 'id_mskeg', 'interpretasi', 'metode_perhitungan', 'rumus', 'klasifikasi', 'kodereferensi', 'indikator_komposit', 'level_estimasi' ] %} {%
+set basic_toggle = [ 'alternate_identifier', 'tag_uri', 'encoding', ] %} 
+{# MS-KEG info: Sublist #} {% set mskeg = [ 'id_kegiatan_mms', 'id_kegiatan', 'judul_kegiatan', 'tahun_kegiatan', 'jenis_statistik', 'cara_pengumpulan_data', 'sektor_kegiatan', 'identitas_rekomendasi', 'i_instansi_penyelanggara', 'i_alamat', 'i_telepon', 'i_email', 'i_faksimile', 'ii_unit_eselon1', 'ii_unit_eselon2', 'ii_pj_nama', 'ii_pj_jabatan', 'ii_pj_alamat', 'ii_pj_telepon', 'ii_pj_email', 'ii_pj_faksimile', 'iii_latar_belakang_kegiatan', 'iii_tujuan_kegiatan', 'iv_kegiatan_ini_dilakukan', 'iv_frekuensi_penyelanggara', 'iv_tipe_pengumpulan_data', 'iv_cakupan_wilayah_pengumpulan_data','iv_metode_pengumpulan_data', 'iv_sarana_pengumpulan_data', 'iv_unit_pengumpulan_data', 'v_jenis_rancangan_sampel', 'v_metode_pemilihan_sampel_tahap_terakhir', 'v_metode_yang_digunakan', 'v_kerangka_sampel_tahap_terakhir', 'v_fraksi_sampel_keseluruhan', 'v_nilai_perkiraan_sampling_error_variabel_utama', 'v_unit_sampel', 'v_unit_observasi', 'vi_apakah_melakukan_uji_coba', 'vi_metode_pemeriksaan_kualitas_pengumpulan_data', 'vi_apakah_melakukan_penyesuaian_nonrespon', 'vi_petugas_pengumpulan_data', 'vi_persyaratan_pendidikan_terendah_petugas_pengumpulan_data', 'vi_jumlah_petugas_supervisor', 'vi_jumlah_petugas_enumerator', 'vi_apakah_melakukan_pelatihan_petugas', 'vii_tahapan_pengolahan_data', 'vii_metode_analisis', 'vii_unit_analisis', 'vii_tingkat_penyajian_hasil_analisis', 'viii_ketersediaan_produk_tercetak', 'viii_ketersediaan_produk_digital', 'viii_ketersediaan_produk_mikrodata', 'produsen_data_name', 'total_msvar', 'total_msind','submission_period' ] %} {#
+Spatial info: Sublist #} {% set spatial = [ 'inspire_id', 'theme',
+'spatial_uri', 'reference_system', 'representation_type' ] %} {% set
+spatial_toggle = [ 'spatial', 'spatial_uri', 'spatial_resolution_in_meters' ] %}
+{# Provenance info: Sublist #} {% set provenance = [ 'provenance',
+'metadata_profile', ] %} {% set provenance_toggle = [ 'conforms_to', 'source',
+'reference', 'frequency', 'lineage_source', 'purpose', 'lineage_process_steps',
+'temporal_start', 'temporal_end', 'version_notes', 'version', 'valid', ] %} {#
+Provenance info: Sublist #} {% set responsible_party = [ 'author', 'maintainer',
+] %} {% set responsible_party_toggle = [ 'author_uri', 'author_email',
+'author_url', 'maintainer_uri', 'maintainer_email', 'maintainer_url', ] %} {%
+set dataset_fields = schema.dataset_fields %} {% set metadata_fields = {} %} {%
+for field in dataset_fields if field.field_name not in exclude_fields %} {% set
+_ = metadata_fields.update({field.field_name: field}) %} {% endfor %}
+
+
+
+<section class="additional-info">
+  {% with md = dataset_type %} {% if md %}
+  <header>
+    <h2 class="inline">
+      {{ _('Metadata') }}
+    </h2>
+  </header>
+
+  {% block package_metadata %} {% asset
+  'ckanext-schemingdcat/schemingdcat-table-collapsible-rows' %} {# Daftar Data Information #}
+  <table
+    class="table table-bordered table-condensed"
+    data-module="schemingdcat-table-collapsible-rows"
+    data-module-numcols="2"
+  >
+    <thead class="thead-normal_table">
+      <tr>
+        <th scope="row" colspan="2" style=text-align:center>{{ _('Daftar Data') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for field_name in daftardata %} {% set field =
+      metadata_fields.get(field_name) %} {% if field %}
+      <tr class="toggle-not">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %} {% for field_name in basic_toggle %} {% set field
+      = metadata_fields.get(field_name) %} {% if field and field_name not in
+      daftardata %}
+      <tr class="toggle-more">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+
+  {# MS-IND info #}
+  <table
+    class="table table-bordered table-condensed"
+    data-module="schemingdcat-table-collapsible-rows"
+    data-module-numcols="2"
+  >
+    <thead class="thead-normal_table">
+      <tr>
+        <th scope="row" colspan="2" style=text-align:center>{{ _('MS-Indikator') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for field_name in msind%} {% set field =
+      metadata_fields.get(field_name) %} {% if field %}
+      <tr class="toggle-not">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %} {% for field_name in spatial_toggle %} {% set
+      field = metadata_fields.get(field_name) %} {% if field and field_name not
+      in msind %}
+      <tr class="toggle-more">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+
+  {# MS-KEG info #}
+  <table
+    class="table table-bordered table-condensed"
+    data-module="schemingdcat-table-collapsible-rows"
+    data-module-numcols="2"
+  >
+    <thead class="thead-normal_table">
+      <tr>
+        <th scope="row" colspan="2" style=text-align:center>{{ _('MS-Kegiatan') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for field_name in mskeg%} {% set field =
+      metadata_fields.get(field_name) %} {% if field %}
+      <tr class="toggle-not">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %} {% for field_name in spatial_toggle %} {% set
+      field = metadata_fields.get(field_name) %} {% if field and field_name not
+      in mskeg %}
+      <tr class="toggle-more">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- {# Spatial info #}
+  <table
+    class="table table-bordered table-condensed"
+    data-module="schemingdcat-table-collapsible-rows"
+    data-module-numcols="2"
+  >
+    <thead class="thead-normal_table">
+      <tr>
+        <td scope="row" colspan="2">{{ _('Spatial information') }}</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for field_name in spatial %} {% set field =
+      metadata_fields.get(field_name) %} {% if field %}
+      <tr class="toggle-not">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %} {% for field_name in spatial_toggle %} {% set
+      field = metadata_fields.get(field_name) %} {% if field and field_name not
+      in spatial %}
+      <tr class="toggle-more">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+
+  {# Provenance #}
+  <table
+    class="table table-bordered table-condensed"
+    data-module="schemingdcat-table-collapsible-rows"
+    data-module-numcols="2"
+  >
+    <thead class="thead-normal_table">
+      <tr>
+        <td scope="row" colspan="2">{{ _('Provenance') }}</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for field_name in provenance %} {% set field =
+      metadata_fields.get(field_name) %} {% if field %}
+      <tr class="toggle-not">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %} {% for field_name in provenance_toggle %} {% set
+      field = metadata_fields.get(field_name) %} {% if field and field_name not
+      in provenance %}
+      <tr class="toggle-more">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+
+  {# Responsible Party #}
+  <table
+    class="table table-bordered table-condensed"
+    data-module="schemingdcat-table-collapsible-rows"
+    data-module-numcols="2"
+  >
+    <thead class="thead-normal_table">
+      <tr>
+        <td scope="row" colspan="2">{{ _('Responsible party') }}</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for field_name in responsible_party %} {% set field =
+      metadata_fields.get(field_name) %} {% if field %}
+      <tr class="toggle-not">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %} {% for field_name in responsible_party_toggle %}
+      {% set field = metadata_fields.get(field_name) %} {% if field and
+      field_name not in responsible_party %}
+      <tr class="toggle-more">
+        <th scope="row" class="dataset-label">
+          {{ h.scheming_language_text(field.label) }}
+        </th>
+        <td
+          class="dataset-details"
+          {%
+          if
+          field.display_property
+          %}
+          property="{{ field.display_property }}"
+          {%
+          endif
+          %}
+        >
+          {% snippet 'scheming/snippets/display_field.html', field=field,
+          data=pkg, schema=schema %}
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table> -->
+
+  {% endblock %} {% endif %} {# md #} {% endwith %} {# md #}
+</section>
