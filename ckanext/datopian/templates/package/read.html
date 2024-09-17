@@ -9,6 +9,28 @@
         {{ _('Private') }}
       </span>
     {% endif %}
+
+    {% if pkg.prioritas_tahun == '2022' %}
+      <span class="dataset-private badge rounded-pill bg-info">
+        <i class="fa fa-database"></i>
+        {{ _('PRIORITAS 2022') }}
+      </span>
+    {% endif %}
+
+    {% if pkg.prioritas_tahun == '2023' %}
+      <span class="dataset-private badge rounded-pill bg-info">
+        <i class="fa fa-database"></i>
+        {{ _('PRIORITAS 2023') }}
+      </span>
+    {% endif %}
+
+    {% if pkg.prioritas_tahun == '2024' %}
+      <span class="dataset-private badge rounded-pill bg-info">
+        <i class="fa fa-database"></i>
+        {{ _('PRIORITAS 2024') }}
+      </span>
+    {% endif %}
+
     {% block package_archive_notice %}
       {% if is_activity_archive %}
         <div class="alert alert-danger">
