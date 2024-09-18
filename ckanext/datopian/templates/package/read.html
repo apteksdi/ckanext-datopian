@@ -72,9 +72,14 @@
   {% endblock %}
 
   {% block package_metadata_info %}
+    {% if pkg.spatial %}
+      {% snippet "package/metadata_info2.html",
+      pkg=pkg, dataset_type=dataset_type, schema=schema %}
+
+    {% else %}
       {% snippet "package/snippets/metadata_info.html",
       pkg=pkg, dataset_type=dataset_type, schema=schema %}
+    {% endif %}
   {% endblock %}
-
 
 {% endblock %}
