@@ -9,6 +9,28 @@
         {{ _('Private') }}
       </span>
     {% endif %}
+
+    {% if pkg.prioritas_tahun == '2022' %}
+      <span class="dataset-private badge rounded-pill bg-info">
+        <i class="fa fa-database"></i>
+        {{ _('PRIORITAS 2022') }}
+      </span>
+    {% endif %}
+
+    {% if pkg.prioritas_tahun == '2023' %}
+      <span class="dataset-private badge rounded-pill bg-info">
+        <i class="fa fa-database"></i>
+        {{ _('PRIORITAS 2023') }}
+      </span>
+    {% endif %}
+
+    {% if pkg.prioritas_tahun == '2024' %}
+      <span class="dataset-private badge rounded-pill bg-info">
+        <i class="fa fa-database"></i>
+        {{ _('PRIORITAS 2024') }}
+      </span>
+    {% endif %}
+
     {% block package_archive_notice %}
       {% if is_activity_archive %}
         <div class="alert alert-danger">
@@ -50,9 +72,14 @@
   {% endblock %}
 
   {% block package_metadata_info %}
+    {% if pkg.spatial %}
+      {% snippet "package/metadata_info2.html",
+      pkg=pkg, dataset_type=dataset_type, schema=schema %}
+
+    {% else %}
       {% snippet "package/snippets/metadata_info.html",
       pkg=pkg, dataset_type=dataset_type, schema=schema %}
+    {% endif %}
   {% endblock %}
-
 
 {% endblock %}
