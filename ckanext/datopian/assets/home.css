@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open Sans:wght@300;400;700&display=swap');
 
 body {
-  font-family: 'Readex Pro', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background: #fff;
 }
 h1,
@@ -12,7 +12,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Readex Pro', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
 }
 h1 {
@@ -792,6 +792,32 @@ button.active {
   padding: 5px 10px;
   border-radius: 30px;
   border-color: #eee;
+}
+
+.item_p_public {
+  padding: 5px 10px;
+  margin: 0;
+  text-align: justify;
+  text-justify: inter-word;
+  border: 1px solid #5dab54;
+  border-radius: 4px;
+  background-color: #e6fec1;
+  margin: 0px 15px 5px 15px;
+}
+
+.item_p_private {
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  text-align: justify;
+  text-justify: inter-word;
+  border: 1px solid #faae20;
+  border-radius: 4px;
+  background-color: #fff6e6;
+  margin: 0px 15px 5px 15px;
 }
 /**** Responsive CSS *****/
 @media only screen and (max-width: 768px) {
