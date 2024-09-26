@@ -43,9 +43,7 @@
   {% endblock %}
 
   {% block package_data_access %}
-    {% if pkg.accessRights %}
       {% snippet "snippets/data_access_license.html", pkg_dict=pkg, dataset_type=dataset_type %}
-    {% endif %}
   {% endblock %}
 
   {% if pkg.spatial %}
