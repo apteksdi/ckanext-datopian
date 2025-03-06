@@ -10,15 +10,7 @@
   {% if form_style != 'edit' %}
     {{ super() }}
   {% else %}
-  {% link_for _('Unggah Berkas'), named_route='resource.new', id=pkg_dict.name, class_='btn-primary', icon='plus' %}
-  {% endif %}
-{% endblock %}
-
-{% block save_button_text2 %}
-  {% if form_style != 'edit' %}
-    {{ super() }}
-  {% else %}
-    {{ _('Update Daftar Data') }}
+    {{ _('Update Dataset') }}
   {% endif %}
 {% endblock %}
 
