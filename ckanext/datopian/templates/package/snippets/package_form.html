@@ -46,13 +46,9 @@ then itself be extended to add/remove blocks of functionality. #}
       {% endblock %}
       
       {% block save_button %}
-        {% if dataset_type == 'statistik' %}
-          <button class="btn btn-primary pull-center" type="submit" name="save">{% block save_button_text %}{{ _('Next: Add Data') }}{% endblock %}</button>
-        {% else %}
-          <button class="btn btn-primary" type="submit" name="save">{% block save_button_text2 %}{{ _('Next: Add Data') }}{% endblock %}</button>
-        {% endif %}
+        <button class="btn btn-primary" type="submit" name="save">{% block save_button_text %}{{ _('Next: Add Data') }}{% endblock %}</button>
       {% endblock %}
-
+      
       {{ form.required_message() }}
     </div>
   {% endblock %}
